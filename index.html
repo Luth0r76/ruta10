@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutas de Vigilancia</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            width: 95%;
+            max-width: 500px;
+            margin: 1rem auto;
+            padding: 1rem;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .location {
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: #2a2a2a;
+            text-align: center;
+            position: relative;
+        }
+        .location h2 {
+            font-size: 1.2rem;
+        }
+        .location p {
+            font-size: 1rem;
+            color: #bbb;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-top: 0.5rem;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .checkbox {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        .visited {
+            background-color: #006400 !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚔 Ruta 10</h1>
+        <p>Ubicaciones y llaves de acceso</p>
+    </header>
+    <div class="container">
+        <div class="location" data-id="1">
+            <h2>📍 Obras Moreras</h2>
+            <p><strong>Dirección:</strong> C/ Moreras 10</p>
+            <p><strong>Llave:</strong> 🔑 </p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+las+Moreras,+10,+Quatre+Carreres,+46024+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="2">
+            <h2>📍 Obras Bertolín</h2>
+            <p><strong>Dirección:</strong> C/ de los hortelanos</p>
+            <p><strong>Llave:</strong> 🔑 290</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+los+Hortolanos,+1,+Quatre+Carreres,+46024+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="3">
+            <h2>📍 Obras </h2>
+            <p><strong>Dirección:</strong> Angel de Villena 32</p>
+            <p><strong>Llave:</strong> 🔑 287</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+%C3%81ngel+Villena,+32,+Quatre+Carreres,+46013+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="4">
+            <h2>📍 Obras hoyo Malilla</h2>
+            <p><strong>Dirección:</strong> C/ Vicente Miguel Carceler 9</p>
+            <p><strong>Llave:</strong> 🔑 344</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C%2F+de+Vicent+Miguel+Carceller+(Periodista),+9,+Quatre+Carreres,+46026+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="5">
+            <h2>📍 Pantera Rosa</h2>
+            <p><strong>Dirección:</strong> C/ Dr Domagk</p>
+            <p><strong>Llave:</strong> 🔑 291</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Cl.+Dr.+Domagk,+Ensanche,+46006+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="6">
+            <h2>📍 Obras </h2>
+            <p><strong>Dirección:</strong> C/ Museros 10</p>
+            <p><strong>Llave:</strong> 🔑 NO</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+Museros,+10,+Poblats+Mar%C3%ADtims,+46011+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="7">
+            <h2>📍 Obras Bertolín</h2>
+            <p><strong>Dirección:</strong> Av. De Los Naranjos 35</p>
+            <p><strong>Llave:</strong> 🔑 284</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+De+Los+Naranjos+35+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="8">
+            <h2>📍 De Congr</h2>
+            <p><strong>Dirección:</strong> Av. Cortes Valencianas 60</p>
+            <p><strong>Llave:</strong> 🔑 111</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="9">
+            <h2>📍 Alboraya</h2>
+            <p><strong>Dirección:</strong> C/ Fusters 42</p>
+            <p><strong>Llave:</strong> 🔑 233</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Carrer+Fusters,+42,+46120+Alboraia,+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="10">
+            <h2>📍 Obras </h2>
+            <p><strong>Dirección:</strong> C/ Museros 10</p>
+            <p><strong>Llave:</strong> 🔑 NO</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+Museros,+10,+Poblats+Mar%C3%ADtims,+46011+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="11">
+            <h2>📍 Obras </h2>
+            <p><strong>Dirección:</strong> C/ Arquitecto Alfaro 51</p>
+            <p><strong>Llave:</strong> 🔑 273</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C%2F+del+Arquitecto+Alfaro,+51,+Poblados+Mar%C3%ADtimos,+46011+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="12">
+            <h2>📍 Obras</h2>
+            <p><strong>Dirección:</strong> Av. Malvarrosa 33</p>
+            <p><strong>Llave:</strong> 🔑 299</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+del+Padre+Ant%C3%B3n+Mart%C3%ADn,+8,+Poblados+Mar%C3%ADtimos,+46011+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="14">
+            <h2>📍 S.L. Gru</h2>
+            <p><strong>Dirección:</strong> Av. De Los Naranjos 35</p>
+            <p><strong>Llave:</strong> 🔑 284</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+De+Los+Naranjos+35+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="15">
+            <h2>📍 S.L. Gru</h2>
+            <p><strong>Dirección:</strong> Av. De Los Naranjos 33</p>
+            <p><strong>Llave:</strong> 🔑 </p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+De+Los+Naranjos+33+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="16">
+            <h2>📍 De Congresos</h2>
+            <p><strong>Dirección:</strong> Av. Cortes Valencianas 60</p>
+            <p><strong>Llave:</strong> 🔑 111</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="17">
+            <h2>📍 Pantera Rosa</h2>
+            <p><strong>Dirección:</strong> C/ Dr Domagk</p>
+            <p><strong>Llave:</strong> 🔑 291</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Cl.+Dr.+Domagk,+Ensanche,+46006+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="18">
+            <h2>📍 Obras y Ofi</h2>
+            <p><strong>Dirección:</strong> AVD. del Puerto 93</p>
+            <p><strong>Llave:</strong> 🔑 </p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Av.+del+Puerto,+93,+Camins+al+Grau,+46022+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+Asturias,+55,+Camins+al+Grau,+46023+Valencia" class="btn" target="_blank">Ofi Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="19">
+            <h2>📍 Residencial A</h2>
+            <p><strong>Dirección:</strong> C/ Museros 10, Valencia</p>
+            <p><strong>Llave:</strong> 🔑 NO</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Calle+Museros+10+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="19">
+            <h2>📍 De Congresos</h2>
+            <p><strong>Dirección:</strong> Av. Cortes Valencianas 60</p>
+            <p><strong>Llave:</strong> 🔑 111</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="20">
+            <h2>📍 Obras</h2>
+            <p><strong>Dirección:</strong> C/ Simón Ortiz 4</p>
+            <p><strong>Llave:</strong> 🔑 NO</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Calle+de+Sim%C3%B3n+Ortiz,+4,+Extramurs,+46008+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="21">
+            <h2>📍 De Congresos</h2>
+            <p><strong>Dirección:</strong> Av. Cortes Valencianas 60</p>
+            <p><strong>Llave:</strong> 🔑 111</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+    
+    <div class="location" data-id="22">
+        <h2>📍 Los Findes</h2>
+        <p><strong>Dirección:</strong> Pio 12</p>
+        <p><strong>Llave:</strong> 🔑 142</p>
+        <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+        <a href="https://www.google.com/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+    </div>
+    </div>
+</div>
+<footer>
+    <p>Creado por Jose Martínez</p>
+</footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const locations = document.querySelectorAll(".location");
+            locations.forEach(location => {
+                const id = location.getAttribute("data-id");
+                const isVisited = localStorage.getItem("visited-" + id);
+                if (isVisited === "true") {
+                    location.classList.add("visited");
+                    location.querySelector(".checkbox").checked = true;
+                }
+            });
+        });
+        
+        function markVisited(checkbox) {
+            const location = checkbox.closest(".location");
+            const id = location.getAttribute("data-id");
+            if (checkbox.checked) {
+                location.classList.add("visited");
+                localStorage.setItem("visited-" + id, "true");
+            } else {
+                location.classList.remove("visited");
+                localStorage.removeItem("visited-" + id);
+            }
+        }
+    </script>
+
+</body>
+</html>
