@@ -91,6 +91,8 @@
     
     
     <div class="container">
+       
+
             <div class="location" data-id="1">
             <h2>📍 Obras de las Moreras</h2>
             <p><strong>Dirección:</strong>C/ Moreras 10</p>
@@ -211,7 +213,7 @@
             <p> 🔑 284</p>
             <h2>📍 Obras Hotel Marvarrosa</h2>
             <p><strong>Dirección:</strong> Av. Malvarrosa </p>
-            <p> 🔑 350</p>
+            <p> 🔑 299</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
             <a href="https://www.google.com/maps/dir/?api=1&destination=Av+De+Los+Naranjos+35+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
@@ -237,9 +239,11 @@
         <input type="checkbox" class="checkbox" onclick="markVisited(this)">
         <a href="https://www.google.es/maps/place/Carrer+Botiguers,+5,+46988+Paterna,+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
     </div>
-    
+    <button onclick="resetVisitas()" class="btn" style="background-color: red; margin-bottom: 1rem;">Resetear visitas ❌</button>
     </div>
+    
 </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const locations = document.querySelectorAll(".location");
@@ -264,6 +268,17 @@
                 localStorage.removeItem("visited-" + id);
             }
         }
+        function resetVisitas() {
+    const checkboxes = document.querySelectorAll(".checkbox");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+        const location = checkbox.closest(".location");
+        const id = location.getAttribute("data-id");
+        location.classList.remove("visited");
+        localStorage.removeItem("visited-" + id);
+    });
+}
+
     </script>
 
 </body>
