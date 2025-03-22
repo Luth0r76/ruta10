@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
             margin: 0;
             padding: 0;
         }
+
         body {
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
@@ -21,6 +23,7 @@
             justify-content: center;
             min-height: 100vh;
         }
+
         header {
             background-color: #003366;
             color: white;
@@ -29,6 +32,7 @@
             width: 100%;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
         .container {
             width: 95%;
             max-width: 500px;
@@ -38,6 +42,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
+
         .location {
             border: 1px solid #444;
             border-radius: 8px;
@@ -47,13 +52,16 @@
             text-align: center;
             position: relative;
         }
+
         .location h2 {
             font-size: 1.2rem;
         }
+
         .location p {
             font-size: 1rem;
             color: #bbb;
         }
+
         .btn {
             display: block;
             width: 100%;
@@ -67,9 +75,11 @@
             transition: background-color 0.3s ease;
             margin-top: 0.5rem;
         }
+
         .btn:hover {
             background-color: #0056b3;
         }
+
         .checkbox {
             position: absolute;
             top: 10px;
@@ -77,23 +87,31 @@
             transform: scale(1.5);
             cursor: pointer;
         }
+
         .visited {
             background-color: #006400 !important;
         }
-        
     </style>
 </head>
+
 <body>
     <header>
         <h1>🚔 Ruta 10</h1>
         <p>Ubicaciones y llaves de acceso</p>
     </header>
-    
-    
-    <div class="container">
-       
 
-            <div class="location" data-id="1">
+
+    <div class="container">
+        <div class="location" data-id="muse1" data-lat="39.4626901" data-lng="-0.3323292">
+            <h2>📍 Obras Museros 1/3 </h2>
+            <p><strong>Dirección:</strong> C/ Museros 10</p>
+            <p>🔑 NO</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+Museros,+10,+Poblats+Mar%C3%ADtims,+46011+Val%C3%A8ncia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+
+        <div class="location" data-id="nazaret" data-lat="39.451617" data-lng="-0.338973">
             <h2>📍 Obras de las Moreras</h2>
             <p><strong>Dirección:</strong>C/ Moreras 10</p>
             <p>🔑 263</p>
@@ -104,110 +122,141 @@
             <p><strong>Dirección:</strong>C/ de Los Hortelanos 2</p>
             <p>🔑 294</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+las+Moreras,+10,+Quatre+Carreres,+46024+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+las+Moreras,+10,+Quatre+Carreres,+46024+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        
-        <div class="location" data-id="2">
+
+        <div class="location" data-id="ville" data-lat="39.4512545" data-lng="-0.3608736">
             <h2>📍 Obras </h2>
             <p><strong>Dirección:</strong>Angel de Villena 32</p>
             <p>🔑 287</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+%C3%81ngel+Villena,+32,+Quatre+Carreres,+46013+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+%C3%81ngel+Villena,+32,+Quatre+Carreres,+46013+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="3">
+        <div class="location" data-id="nueva" data-lat="39.4430921" data-lng="-0.3670596">
+            <h2>📍 Obra NUEVA</h2>
+            <p><strong>Dirección:</strong>C/ Manuela Solís Clarás 4</p>
+            <p>🔑 350?</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=C.+Manuela+Sol%C3%ADs+Clar%C3%A1s,+4,+Quatre+Carreres,+46013+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <div class="location" data-id="malilla" data-lat="39.4462119" data-lng="-0.3767535">
             <h2>📍 Obras hoyo Malilla</h2>
             <p><strong>Dirección:</strong>C/ Vicente Miguel Carceler 9</p>
             <p>🔑 344</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=C%2F+de+Vicent+Miguel+Carceller+(Periodista),+9,+Quatre+Carreres,+46026+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C%2F+de+Vicent+Miguel+Carceller+(Periodista),+9,+Quatre+Carreres,+46026+Val%C3%A8ncia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="4">
+        <div class="location" data-id="prosa1" data-lat="39.4571311" data-lng="-0.376892">
             <h2>📍 Pantera Rosa 1/2</h2>
             <p><strong>Dirección:</strong> C/ Dr Domagk</p>
             <p>🔑 291</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=Cl.+Dr.+Domagk,+Ensanche,+46006+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Cl.+Dr.+Domagk,+Ensanche,+46006+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="5">
-            <h2>📍 Obras Museros 1/3 </h2>
+        <div class="location" data-id="muse2" data-lat="39.4626901" data-lng="-0.3323292">
+            <h2>📍 Obras Museros 2/3 </h2>
             <p><strong>Dirección:</strong> C/ Museros 10</p>
             <p>🔑 NO</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+Museros,+10,+Poblats+Mar%C3%ADtims,+46011+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+Museros,+10,+Poblats+Mar%C3%ADtims,+46011+Val%C3%A8ncia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="6">
+        <div class="location" data-id="alfa" data-lat="39.4648678" data-lng="-0.3350294">
             <h2>📍 Arquitecto Alfaro </h2>
             <p><strong>Dirección:</strong> C/ Arquitecto Alfaro 51</p>
             <p>🔑 273</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=C%2F+del+Arquitecto+Alfaro,+51,+Poblados+Mar%C3%ADtimos,+46011+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C%2F+del+Arquitecto+Alfaro,+51,+Poblados+Mar%C3%ADtimos,+46011+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="7">
+        <div class="location" data-id="malva1" data-lat="39.4756376" data-lng="-0.329626">
             <h2>📍 Obras Naranjos 35</h2>
             <p><strong>Dirección:</strong> Av. De Los Naranjos 35</p>
             <p>🔑 284</p>
-                <h2>📍 Obras Naranjos 33</h2>
-                <p><strong>Dirección:</strong> Av. De Los Naranjos 33</p>
-                <p> 🔑 350</p>
+            <h2>📍 Obras Naranjos 33</h2>
+            <p><strong>Dirección:</strong> Av. De Los Naranjos 33</p>
+            <p> 🔑 350</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+De+Los+Naranjos+35+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+De+Los+Naranjos+35+Valencia" class="btn"
+                target="_blank">Ir al Destino 🚔</a>
         </div>
-        
-        <div class="location" data-id="8">
+
+        <div class="location" data-id="albo" data-lat="39.5027727" data-lng="-0.3455681">
             <h2>📍 Alboraya (Fotoni)</h2>
             <p><strong>Dirección:</strong> C/ Fusters 42</p>
             <p>🔑 233</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=Carrer+Fusters,+42,+46120+Alboraia,+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Carrer+Fusters,+42,+46120+Alboraia,+Val%C3%A8ncia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="9">
+        <div class="location" data-id="congre1" data-lat="39.4962485" data-lng="-0.4020685">
             <h2>📍 De Congresos 1/2</h2>
             <p><strong>Dirección:</strong> Av. Cortes Valencianas 60</p>
             <p>🔑 111</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn"
+                target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="10">
+        <div class="location" data-id="pio" data-lat="39.4804088" data-lng="-0.3928475">
             <h2>📍 Pio 12</h2>
             <p><strong>Dirección:</strong>C/ Pio XII 9 y 11</p>
             <p> 🔑 142</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/place/Av.+P%C3%ADo+XII,+11,+Campanar,+46009+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/place/Av.+P%C3%ADo+XII,+11,+Campanar,+46009+Valencia" class="btn"
+                target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="11">
+        <div class="location" data-id="ortiz" data-lat="39.4729145" data-lng="-0.386149">
             <h2>📍 Obras Simón Ortiz</h2>
             <p><strong>Dirección:</strong> C/ Simón Ortiz 4</p>
             <p> 🔑 NO</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=Calle+de+Sim%C3%B3n+Ortiz,+4,+Extramurs,+46008+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Calle+de+Sim%C3%B3n+Ortiz,+4,+Extramurs,+46008+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="12">
+        <div class="location" data-id="prosa2" data-lat="39.4571311" data-lng="-0.376892">
             <h2>📍 Pantera Rosa 2/2</h2>
             <p><strong>Dirección:</strong> C/ Dr Domagk</p>
             <p> 🔑 291</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=Cl.+Dr.+Domagk,+Ensanche,+46006+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Cl.+Dr.+Domagk,+Ensanche,+46006+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="13">
+        <div class="location" data-id="puerto" data-lat="39.4655743" data-lng="-0.3503379">
             <h2>📍 Obras Avd Puerto</h2>
             <p><strong>Dirección:</strong> AVD. del Puerto 93</p>
             <p> 🔑 </p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=Av.+del+Puerto,+93,+Camins+al+Grau,+46022+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=Av.+del+Puerto,+93,+Camins+al+Grau,+46022+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
             <h2>📍 Oficina </h2>
             <p><strong>Dirección:</strong> C/ Asturias 51</p>
             <p> 🔑 NO</p>
-            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+Asturias,+55,+Camins+al+Grau,+46023+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+Asturias,+55,+Camins+al+Grau,+46023+Valencia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-        <div class="location" data-id="14">
-            <h2>📍 Obras Museros 2/3 </h2>
+        <div class="location" data-id="muse3" data-lat="39.4626901" data-lng="-0.3323292">
+            <h2>📍 Obras Museros 3/3 </h2>
             <p><strong>Dirección:</strong> C/ Museros 10</p>
             <p> 🔑 NO</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+Museros,+10,+Poblats+Mar%C3%ADtims,+46011+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.es/maps/dir/?api=1&destination=C.+de+Museros,+10,+Poblats+Mar%C3%ADtims,+46011+Val%C3%A8ncia"
+                class="btn" target="_blank">Ir al Destino 🚔</a>
         </div>
-                                            <!-- MALVARROSA-->
-        <div class="location" data-id="15">
+        <div class="location" data-id="congre2" data-lat="39.4962485" data-lng="-0.4020685">
+            <h2>📍 De Congresos 2/2</h2>
+            <p><strong>Dirección:</strong> Av. Cortes Valencianas 60</p>
+            <p> 🔑 111</p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn"
+                target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <!-- MALVARROSA-->
+        <div class="location" data-id="malva2" data-lat="39.4756376" data-lng="-0.329626">
             <h2>📍 S.L. Naranjos 35 2/2</h2>
             <p><strong>Dirección:</strong> Av. De Los Naranjos 35</p>
             <p> 🔑 284</p>
@@ -215,48 +264,40 @@
             <p><strong>Dirección:</strong> Av. Malvarrosa </p>
             <p> 🔑 299</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+De+Los+Naranjos+35+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
-        </div>
-        <div class="location" data-id="16">
-            <h2>📍 Residencial A</h2>
-            <p><strong>Dirección:</strong> C/ Museros 10, Valencia</p>
-            <p> 🔑 NO</p>
-            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Calle+Museros+10+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
-        </div>
-        <div class="location" data-id="17">
-            <h2>📍 De Congresos</h2>
-            <p><strong>Dirección:</strong> Av. Cortes Valencianas 60</p>
-            <p> 🔑 111</p>
-            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+Cortes+Valencianas+60+Valencia" class="btn" target="_blank">Ir al Destino 🚔</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Av+De+Los+Naranjos+35+Valencia" class="btn"
+                target="_blank">Ir al Destino 🚔</a>
         </div>
         
-    <div class="location" data-id="18">
-        <h2>📍 Base</h2>
-        <p><strong>Dirección:</strong> C/ Botiguers, 5</p>
-        <p>A casa </p>
-        <input type="checkbox" class="checkbox" onclick="markVisited(this)">
-        <a href="https://www.google.es/maps/place/Carrer+Botiguers,+5,+46988+Paterna,+Val%C3%A8ncia" class="btn" target="_blank">Ir al Destino 🚔</a>
+        <div class="location" data-id="base" data-lat="39.5120889" data-lng="-0.4503315">
+            <h2>📍 Base</h2>
+            <p><strong>Dirección:</strong> C/ Botiguers, 5</p>
+            <p>A casa </p>
+            <input type="checkbox" class="checkbox" onclick="markVisited(this)">
+            <a href="https://www.google.es/maps/place/Carrer+Botiguers,+5,+46988+Paterna,+Val%C3%A8ncia" class="btn"
+                target="_blank">Ir al Destino 🚔</a>
+        </div>
+        <button onclick="resetVisitas()" class="btn" style="background-color: rgb(255, 112, 112); margin-bottom: 1rem;">Resetear
+            visitas ❌</button>
     </div>
-    <button onclick="resetVisitas()" class="btn" style="background-color: red; margin-bottom: 1rem;">Resetear visitas ❌</button>
+
     </div>
-    
-</div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const locations = document.querySelectorAll(".location");
             locations.forEach(location => {
                 const id = location.getAttribute("data-id");
                 const isVisited = localStorage.getItem("visited-" + id);
                 if (isVisited === "true") {
                     location.classList.add("visited");
+                    const hora = localStorage.getItem("hora-" + id);
+                    if (hora) mostrarHora(location, hora);
+
                     location.querySelector(".checkbox").checked = true;
                 }
             });
         });
-        
+
         function markVisited(checkbox) {
             const location = checkbox.closest(".location");
             const id = location.getAttribute("data-id");
@@ -268,18 +309,113 @@
                 localStorage.removeItem("visited-" + id);
             }
         }
+        function markVisited(checkbox) {
+            const location = checkbox.closest(".location");
+            const id = location.getAttribute("data-id");
+
+            const now = new Date();
+            const hora = now.toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
+
+            if (checkbox.checked) {
+                location.classList.add("visited");
+                localStorage.setItem("visited-" + id, "true");
+                localStorage.setItem("hora-" + id, hora);
+
+                mostrarHora(location, hora);
+            } else {
+                location.classList.remove("visited");
+                localStorage.removeItem("visited-" + id);
+                localStorage.removeItem("hora-" + id);
+
+                const horaSpan = location.querySelector(".hora-visita");
+                if (horaSpan) horaSpan.remove();
+            }
+        }
+
+        function mostrarHora(location, hora) {
+            let horaSpan = location.querySelector(".hora-visita");
+            if (!horaSpan) {
+                horaSpan = document.createElement("p");
+                horaSpan.classList.add("hora-visita");
+                horaSpan.style.marginTop = "10px";
+                horaSpan.style.fontSize = "0.9rem";
+                horaSpan.style.color = "#ccc";
+                location.appendChild(horaSpan);
+            }
+            horaSpan.textContent = "✅ Marcado a las " + hora;
+        }
+
+
         function resetVisitas() {
     const checkboxes = document.querySelectorAll(".checkbox");
     checkboxes.forEach(checkbox => {
         checkbox.checked = false;
         const location = checkbox.closest(".location");
         const id = location.getAttribute("data-id");
+
+        // Quitar estilos y valores guardados
         location.classList.remove("visited");
         localStorage.removeItem("visited-" + id);
+        localStorage.removeItem("hora-" + id);
+
+        // Quitar mensaje de hora visual si existe
+        const horaSpan = location.querySelector(".hora-visita");
+        if (horaSpan) horaSpan.remove();
     });
 }
+
+
+
+        function calcularDistancias() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+            const userLat = pos.coords.latitude;
+            const userLng = pos.coords.longitude;
+
+            document.querySelectorAll('.location').forEach(loc => {
+                const lat = parseFloat(loc.dataset.lat);
+                const lng = parseFloat(loc.dataset.lng);
+
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    const distancia = getDistanceFromLatLonInKm(userLat, userLng, lat, lng);
+                    let distanciaElem = document.createElement('p');
+                    distanciaElem.style.color = "#bbb";
+                    distanciaElem.style.marginTop = "5px";
+                    distanciaElem.textContent = `📏 Distancia: ${distancia.toFixed(2)} km`;
+                    loc.appendChild(distanciaElem);
+                }
+            });
+        }, err => {
+            alert("No se pudo obtener tu ubicación.");
+        });
+    } else {
+        alert("Tu navegador no soporta geolocalización.");
+    }
+}
+
+// Fórmula Haversine
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radio de la tierra en km
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    calcularDistancias(); // Calcula distancias al cargar
+});
 
     </script>
 
 </body>
+
 </html>
