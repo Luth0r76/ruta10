@@ -61,6 +61,7 @@
         .location p {
             font-size: 1rem;
             color: #bbb;
+           
         }
 
         .btn {
@@ -95,7 +96,8 @@
         }
 
         .visited {
-            background-color: #006400 !important;
+            background-color: #004100 !important;
+            border: 2px solid #ffffff;
         }
     
         .badge {
@@ -154,7 +156,7 @@
         <div class="location" data-id="nueva" data-lat="39.4430921" data-lng="-0.3670596">
             <h2>📍 Obra NUEVA</h2>
             <p><strong>Dirección:</strong>C/ Manuela Solís Clarás 4</p>
-            <p>🔑 350?</p>
+            <p>🔑 349</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
             <a href="https://www.google.com/maps/dir/?api=1&destination=C.+Manuela+Sol%C3%ADs+Clar%C3%A1s,+4,+Quatre+Carreres,+46013+Valencia"
                 class="btn" target="_blank">Ir al Destino 🚔</a>
@@ -206,7 +208,7 @@
         <div class="location" data-id="albo" data-lat="39.5027727" data-lng="-0.3455681">
             <h2>📍 Alboraya (Fotoni)</h2>
             <p><strong>Dirección:</strong> C/ Fusters 42</p>
-            <p>🔑 233</p>
+            <p>🔑 223</p>
             <input type="checkbox" class="checkbox" onclick="markVisited(this)">
             <a href="https://www.google.es/maps/dir/?api=1&destination=Carrer+Fusters,+42,+46120+Alboraia,+Val%C3%A8ncia"
                 class="btn" target="_blank">Ir al Destino 🚔</a>
@@ -357,8 +359,8 @@
                 horaSpan = document.createElement("p");
                 horaSpan.classList.add("hora-visita");
                 horaSpan.style.marginTop = "10px";
-                horaSpan.style.fontSize = "0.9rem";
-                horaSpan.style.color = "#ccc";
+                horaSpan.style.fontSize = "1.2rem";
+                horaSpan.style.color = "white";
                 location.appendChild(horaSpan);
             }
             horaSpan.textContent = "✅ Marcado a las " + hora;
