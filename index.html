@@ -320,6 +320,7 @@
                 localStorage.setItem("hora-" + id, hora);
                 mostrarHora(location, hora);
     
+                // Mover al final al marcar
                 const container = document.getElementById("locations-container");
                 container.appendChild(location);
             } else {
@@ -373,76 +374,13 @@
                     const lngB = parseFloat(b.dataset.lng);
                     const distA = getDistanceFromLatLonInKm(userLat, userLng, latA, lngA);
                     const distB = getDistanceFromLatLonInKm(userLat, userLng, latB, lngB);
-    
-                    if (distA !== distB) {
-                        return distA - distB;
-                    } else {
-                        const idA = a.getAttribute('data-id') || '';
-                        const idB = b.getAttribute('data-id') || '';
-                        return idA.localeCompare(idB, 'es', { numeric: true });
-                    }
+                    return distA - distB;
                 });
     
-                const sinGrupo = [];
-                const conGrupo = {};
+                // Insertar primero los no visitados ordenados
+                unvisited.forEach(loc => container.appendChild(loc));
     
-                for (const loc of unvisited) {
-                    const grupo = loc.dataset.group;
-                    if (!grupo) {
-                        sinGrupo.push(loc);
-                    } else {
-                        if (!conGrupo[grupo]) conGrupo[grupo] = [];
-                        conGrupo[grupo].push(loc);
-                    }
-                }
-    
-                const resultadoFinal = [];
-                const MIN_SEPARACION = 3;
-    
-                function puedeInsertarse(grupo, index) {
-                    for (let i = index - MIN_SEPARACION; i <= index + MIN_SEPARACION; i++) {
-                        if (resultadoFinal[i] && resultadoFinal[i].dataset.group === grupo) {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-    
-                const elementosPendientes = Object.entries(conGrupo).flatMap(([grupo, elems]) =>
-                    elems.map(el => ({ el, grupo }))
-                );
-    
-                let i = 0;
-                while (elementosPendientes.length > 0 && i < 2000) {
-                    i++;
-                    for (let idx = 0; idx < elementosPendientes.length; idx++) {
-                        const { el, grupo } = elementosPendientes[idx];
-                        let pos = 0;
-                        while (pos <= resultadoFinal.length) {
-                            if (!resultadoFinal[pos] && puedeInsertarse(grupo, pos)) {
-                                resultadoFinal[pos] = el;
-                                elementosPendientes.splice(idx, 1);
-                                break;
-                            }
-                            pos++;
-                        }
-                    }
-                }
-    
-                for (const el of sinGrupo) {
-                    let pos = 0;
-                    while (pos <= resultadoFinal.length) {
-                        if (!resultadoFinal[pos]) {
-                            resultadoFinal[pos] = el;
-                            break;
-                        }
-                        pos++;
-                    }
-                }
-    
-                const finalLimpio = resultadoFinal.filter(Boolean);
-                finalLimpio.forEach(loc => container.appendChild(loc));
-    
+                // Reinsertar los visitados en orden guardado
                 const ordenVisitados = JSON.parse(localStorage.getItem("orden-visitados") || "[]");
                 ordenVisitados.forEach(id => {
                     const el = document.querySelector(`.location[data-id="${id}"]`);
@@ -491,6 +429,7 @@
     
             localStorage.removeItem("orden-visitados");
     
+            // Restaurar el orden original en pantalla
             ordenOriginal.forEach(id => {
                 const el = document.querySelector(`.location[data-id="${id}"]`);
                 if (el) container.appendChild(el);
@@ -501,6 +440,7 @@
             const container = document.getElementById("locations-container");
             const locations = Array.from(document.querySelectorAll(".location"));
     
+            // Guardar el orden original en memoria
             ordenOriginal = locations.map(loc => loc.getAttribute("data-id"));
     
             locations.forEach(location => {
@@ -550,6 +490,9 @@
             }
         }
     </script>
+    
+    
+
 
 </body>
 
