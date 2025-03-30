@@ -121,6 +121,7 @@
 
     <div class="container">
         <button onclick="ordenarPorDistancia()" class="btn">📏 Ordenar por Distancia</button>
+        <button onclick="resetVisitas()" class="btn">Resetear Visitas ❌</button>
     <div id="locations-container">
         <div class="location" data-id="muse1" data-lat="39.4626901" data-lng="-0.3323292" data-group="museros">
             <h2>📍 Obras Museros 1/3 </h2>
@@ -298,39 +299,46 @@
         </div>
     </div>
 
-        <button onclick="resetVisitas()" class="btn">Resetear Visitas ❌</button>
+       
 
     </div>
 
     </div>
 
     <script>
-        // Funciones y mejoras integradas
-
+        let ordenOriginal = [];
+    
         function markVisited(checkbox) {
-    const location = checkbox.closest(".location");
-    const id = location.getAttribute("data-id");
-    const now = new Date();
-    const hora = now.toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
-
-    if (checkbox.checked) {
-        location.classList.add("visited");
-        localStorage.setItem("visited-" + id, "true");
-        localStorage.setItem("hora-" + id, hora);
-        mostrarHora(location, hora);
-        // Mueve el elemento marcado al final del contenedor de ubicaciones
-        const container = document.getElementById("locations-container");
-        container.appendChild(location);
-    } else {
-        location.classList.remove("visited");
-        localStorage.removeItem("visited-" + id);
-        localStorage.removeItem("hora-" + id);
-        const horaSpan = location.querySelector(".hora-visita");
-        if (horaSpan) horaSpan.remove();
-    }
-}
-
-
+            const location = checkbox.closest(".location");
+            const id = location.getAttribute("data-id");
+            const now = new Date();
+            const hora = now.toLocaleTimeString("es-ES", { hour: '2-digit', minute: '2-digit' });
+    
+            if (checkbox.checked) {
+                location.classList.add("visited");
+                localStorage.setItem("visited-" + id, "true");
+                localStorage.setItem("hora-" + id, hora);
+                mostrarHora(location, hora);
+    
+                const container = document.getElementById("locations-container");
+                container.appendChild(location);
+            } else {
+                location.classList.remove("visited");
+                localStorage.removeItem("visited-" + id);
+                localStorage.removeItem("hora-" + id);
+                const horaSpan = location.querySelector(".hora-visita");
+                if (horaSpan) horaSpan.remove();
+            }
+    
+            guardarOrdenVisitados();
+        }
+    
+        function guardarOrdenVisitados() {
+            const visited = document.querySelectorAll('.location.visited');
+            const orden = Array.from(visited).map(loc => loc.getAttribute('data-id'));
+            localStorage.setItem('orden-visitados', JSON.stringify(orden));
+        }
+    
         function mostrarHora(location, hora) {
             let horaSpan = location.querySelector(".hora-visita");
             if (!horaSpan) {
@@ -343,22 +351,21 @@
             }
             horaSpan.textContent = "✅ Marcado a las " + hora;
         }
-
+    
         function ordenarPorDistancia() {
             const container = document.getElementById("locations-container");
             const allLocations = Array.from(container.querySelectorAll(".location"));
             const unvisited = allLocations.filter(loc => !loc.classList.contains("visited"));
-            const visited = allLocations.filter(loc => loc.classList.contains("visited"));
-
+    
             if (!navigator.geolocation) {
                 alert("Tu navegador no soporta geolocalización.");
                 return;
             }
-
+    
             navigator.geolocation.getCurrentPosition(pos => {
                 const userLat = pos.coords.latitude;
                 const userLng = pos.coords.longitude;
-
+    
                 unvisited.sort((a, b) => {
                     const latA = parseFloat(a.dataset.lat);
                     const lngA = parseFloat(a.dataset.lng);
@@ -366,17 +373,89 @@
                     const lngB = parseFloat(b.dataset.lng);
                     const distA = getDistanceFromLatLonInKm(userLat, userLng, latA, lngA);
                     const distB = getDistanceFromLatLonInKm(userLat, userLng, latB, lngB);
-                    return distA - distB;
+    
+                    if (distA !== distB) {
+                        return distA - distB;
+                    } else {
+                        const idA = a.getAttribute('data-id') || '';
+                        const idB = b.getAttribute('data-id') || '';
+                        return idA.localeCompare(idB, 'es', { numeric: true });
+                    }
                 });
-
-                unvisited.forEach(loc => container.appendChild(loc));
-                visited.forEach(loc => container.appendChild(loc));
+    
+                const sinGrupo = [];
+                const conGrupo = {};
+    
+                for (const loc of unvisited) {
+                    const grupo = loc.dataset.group;
+                    if (!grupo) {
+                        sinGrupo.push(loc);
+                    } else {
+                        if (!conGrupo[grupo]) conGrupo[grupo] = [];
+                        conGrupo[grupo].push(loc);
+                    }
+                }
+    
+                const resultadoFinal = [];
+                const MIN_SEPARACION = 3;
+    
+                function puedeInsertarse(grupo, index) {
+                    for (let i = index - MIN_SEPARACION; i <= index + MIN_SEPARACION; i++) {
+                        if (resultadoFinal[i] && resultadoFinal[i].dataset.group === grupo) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+    
+                const elementosPendientes = Object.entries(conGrupo).flatMap(([grupo, elems]) =>
+                    elems.map(el => ({ el, grupo }))
+                );
+    
+                let i = 0;
+                while (elementosPendientes.length > 0 && i < 2000) {
+                    i++;
+                    for (let idx = 0; idx < elementosPendientes.length; idx++) {
+                        const { el, grupo } = elementosPendientes[idx];
+                        let pos = 0;
+                        while (pos <= resultadoFinal.length) {
+                            if (!resultadoFinal[pos] && puedeInsertarse(grupo, pos)) {
+                                resultadoFinal[pos] = el;
+                                elementosPendientes.splice(idx, 1);
+                                break;
+                            }
+                            pos++;
+                        }
+                    }
+                }
+    
+                for (const el of sinGrupo) {
+                    let pos = 0;
+                    while (pos <= resultadoFinal.length) {
+                        if (!resultadoFinal[pos]) {
+                            resultadoFinal[pos] = el;
+                            break;
+                        }
+                        pos++;
+                    }
+                }
+    
+                const finalLimpio = resultadoFinal.filter(Boolean);
+                finalLimpio.forEach(loc => container.appendChild(loc));
+    
+                const ordenVisitados = JSON.parse(localStorage.getItem("orden-visitados") || "[]");
+                ordenVisitados.forEach(id => {
+                    const el = document.querySelector(`.location[data-id="${id}"]`);
+                    if (el && el.classList.contains("visited")) {
+                        container.appendChild(el);
+                    }
+                });
+    
             }, err => {
                 alert("No se pudo obtener tu ubicación.");
             });
         }
-
-        // Función de cálculo de distancias
+    
         function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
             const R = 6371;
             const dLat = deg2rad(lat2 - lat1);
@@ -388,29 +467,42 @@
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             return R * c;
         }
-
+    
         function deg2rad(deg) {
             return deg * (Math.PI / 180);
         }
-
+    
         function resetVisitas() {
+            const container = document.getElementById("locations-container");
             const checkboxes = document.querySelectorAll(".checkbox");
+    
             checkboxes.forEach(checkbox => {
                 checkbox.checked = false;
                 const location = checkbox.closest(".location");
                 const id = location.getAttribute("data-id");
-
+    
                 location.classList.remove("visited");
                 localStorage.removeItem("visited-" + id);
                 localStorage.removeItem("hora-" + id);
-
+    
                 const horaSpan = location.querySelector(".hora-visita");
                 if (horaSpan) horaSpan.remove();
             });
+    
+            localStorage.removeItem("orden-visitados");
+    
+            ordenOriginal.forEach(id => {
+                const el = document.querySelector(`.location[data-id="${id}"]`);
+                if (el) container.appendChild(el);
+            });
         }
-
+    
         document.addEventListener("DOMContentLoaded", () => {
-            const locations = document.querySelectorAll(".location");
+            const container = document.getElementById("locations-container");
+            const locations = Array.from(document.querySelectorAll(".location"));
+    
+            ordenOriginal = locations.map(loc => loc.getAttribute("data-id"));
+    
             locations.forEach(location => {
                 const id = location.getAttribute("data-id");
                 const isVisited = localStorage.getItem("visited-" + id);
@@ -421,9 +513,18 @@
                     location.querySelector(".checkbox").checked = true;
                 }
             });
+    
+            const ordenVisitados = JSON.parse(localStorage.getItem("orden-visitados") || "[]");
+            ordenVisitados.forEach(id => {
+                const el = document.querySelector(`.location[data-id="${id}"]`);
+                if (el && el.classList.contains("visited")) {
+                    container.appendChild(el);
+                }
+            });
+    
             calcularDistancias();
         });
-
+    
         function calcularDistancias() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(pos => {
@@ -448,10 +549,6 @@
                 alert("Tu navegador no soporta geolocalización.");
             }
         }
-
-        
-
-
     </script>
 
 </body>
